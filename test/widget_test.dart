@@ -5,26 +5,52 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:continual/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:continual/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Label changes when the button is pressed',
+      (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text("Codemagic rocks! 🎉 🎉 🎉 "), findsOneWidget);
+    expect(find.text("Pictures of cats"), findsNothing);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // then change the text and assert that it changes properly
+
+    expect(find.text("Codemagic rocks! 🎉 🎉 🎉 "), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.navigate_next));
+    await tester.pump(); // get the ui state update
+
+    expect(find.text('Codemagic is easy'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.navigate_next));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Its easy to use'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.navigate_next));
+    await tester.pump();
+
+    expect(find.text('And it looks great'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.navigate_next));
+    await tester.pump();
+
+    expect(find.text("Codemagic rocks! 🎉 🎉 🎉 "), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.navigate_next));
+
+//    // Build our app and trigger a frame.
+//    await tester.pumpWidget(MyApp());
+//
+//    // Verify that our counter starts at 0.
+//    expect(find.text('0'), findsOneWidget);
+//    expect(find.text('1'), findsNothing);
+//
+//    // Tap the '+' icon and trigger a frame.
+//    await tester.tap(find.byIcon(Icons.add));
+//    await tester.pump();
+//
+//    // Verify that our counter has incremented.
+//    expect(find.text('0'), findsNothing);
+//    expect(find.text('1'), findsOneWidget);
   });
 }
